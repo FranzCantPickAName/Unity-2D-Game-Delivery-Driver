@@ -1,0 +1,65 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Collision : MonoBehaviour
+{
+
+    [SerializeField] Color32 hasPackageColor = new Color32(1, 1, 1, 1);
+
+    [SerializeField] Color32 noPackageColor = new Color32(1, 1, 1, 1);
+
+    [SerializeField] float destroyDelay = 0.5f;
+    bool hasPackage;
+
+    SpriteRenderer spriteRenderer;
+
+    //void OnCollisionEnter2D(Collision2D other)
+    //{
+    //    Debug.Log("Ouch!");
+    //}
+
+    //private void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (other.tag == "Package")
+    //    {
+    //        Debug.Log("Package picked up");
+    //    }
+
+    //    if (other.tag == "Customer")
+    //    {
+    //        Debug.Log("Package delivered");
+    //    }
+    //}
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Package" && !hasPackage)
+        {
+            Debug.Log("Package picked up");
+            hasPackage = true;
+            spriteRenderer.color = hasPackageColor;
+            //spriteRenderer.sprite.name = "Car 1";
+            Destroy(other.gameObject, destroyDelay);
+        }
+
+        if (other.tag == "Customer" && hasPackage)
+        {
+            Debug.Log("Package delivered");
+            hasPackage = false;
+            spriteRenderer.color = noPackageColor;
+        }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
