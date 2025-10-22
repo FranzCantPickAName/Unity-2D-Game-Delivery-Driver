@@ -32,7 +32,7 @@ public class Driver : MonoBehaviour
     {
         moveSpeed = slowSpeed;
     }
-
+    //test
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Boost")
